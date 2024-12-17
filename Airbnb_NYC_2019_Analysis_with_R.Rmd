@@ -74,5 +74,45 @@ Duplicate entries can skew my analysis. By removing them, I ensure that each lis
 
 Above, I can confirm that I have removed/there are no duplicate values in my analysis so my dataset will be valid for analysis.
 
+### **1.4 Handling Outliers**
+```{r}
+# Identify outliers in price using IQR
+Q1 <- quantile(airbnb_data$price, 0.25)
+Q3 <- quantile(airbnb_data$price, 0.75)
+IQR <- Q3 - Q1
 
+# Filter to remove outliers
+airbnb_data <- airbnb_data %>% 
+  filter(price >= (Q1 - 1.5 * IQR) & price <= (Q3 + 1.5 * IQR))
+
+# Boxplot to visualize outliers
+ggplot(airbnb_data, aes(y = price)) + 
+  geom_boxplot() +
+  labs(title = "Price Distribution After Outlier Removal")
+```
+
+Prices that deviate significantly from the normal range (outliers) could mislead the analysis. 
+
+Using the interquartile range (IQR) method, I removed the extreme values. The boxplot above confirms the filtered dataset.
+
+I have now successfully handled the outlier and I can proceed with my analysis.
+
+### **1.5 Restructuring the Data**
+```{r}
+# Convert last_review to Date type
+airbnb_data$last_review <- as.Date(airbnb_data$last_review)
+glimpse(airbnb_data)
+```
+
+To work well with time-based analysis, I converted the last_review column to a date format.
+
+### **1.6 Final structure of the cleaned data**
+```{r}
+glimpse(airbnb_data)
+summary(airbnb_data)
+dim(airbnb_data)
+head(airbnb_data)
+```
+
+This now proves that my data is clean and I can continue to perform my analysis on the data. I have successfully eliminated the nulls, duplicates and outliers from my data.
 
