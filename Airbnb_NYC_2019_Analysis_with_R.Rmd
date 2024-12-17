@@ -7,6 +7,7 @@ output: html_document
 
 ```{r warning=FALSE}
 ```
+
 ## Introduction
 In this analysis, I will explore the 2019 Airbnb listings data for New York City. My main goals are:
 
@@ -17,5 +18,61 @@ In this analysis, I will explore the 2019 Airbnb listings data for New York City
 * To build predictive models to understand factors influencing price and customer behaviors
 
 I aim to identify trends in room types, pricing, and availability across neighborhoods. Additionally, I will use machine learning models to predict prices and group listings into clusters.
+
+## **1. Data Cleaning and Restructuring**
+
+### **1.1 Loading and Exploring the Dataset**
+```{r message=FALSE}
+# Load necessary libraries
+library(tidyverse)
+library(lubridate)
+
+# Import the dataset
+airbnb_data <- read.csv("AB_NYC_2019.csv")
+
+# Explore the dataset
+glimpse(airbnb_data)
+summary(airbnb_data)
+dim(airbnb_data)
+head(airbnb_data)
+```
+The dataset contains information about Airbnb listings in New York City, such as prices, neighborhoods, room types, and availability. By checking the structure and summary, I can identify missing values, data types, and any anomalies that need attention
+
+### **1.2 Handling N/A, null and Missing Values**
+```{r}
+# Check for missing values
+colSums(is.na(airbnb_data))
+
+# Impute missing values in `reviews_per_month` with median grouped by neighborhood group
+airbnb_data <- airbnb_data %>%
+  group_by(neighbourhood_group) %>%
+  mutate(reviews_per_month = ifelse(is.na(reviews_per_month), 
+                                    median(reviews_per_month, na.rm = TRUE), 
+                                    reviews_per_month)) %>%
+  ungroup()
+
+# Drop rows with missing `name` or `host_name`
+airbnb_data <- airbnb_data %>% drop_na(name, host_name)
+
+# Verify missing values resolved
+colSums(is.na(airbnb_data))
+```
+I identified missing values in columns like reviews_per_month. Since this field is crucial for analyzing customer engagement, I imputed missing values with the median grouped by neighbourhood_group. 
+
+Rows with missing name or host_name were removed to ensure meaningful analysis.
+
+I feel it is now safe to continue with my analysis since I have dealt properly with the N/A values.
+
+### **1.3 Removing Duplicates**
+```{r}
+# Check and remove duplicates
+sum(duplicated(airbnb_data))
+airbnb_data <- airbnb_data %>% distinct()
+```
+
+Duplicate entries can skew my analysis. By removing them, I ensure that each listing is unique.
+
+Above, I can confirm that I have removed/there are no duplicate values in my analysis so my dataset will be valid for analysis.
+
 
 
