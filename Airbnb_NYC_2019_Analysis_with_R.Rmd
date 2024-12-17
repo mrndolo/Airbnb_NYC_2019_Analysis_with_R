@@ -5,3 +5,17 @@ date: "2024-12-15"
 output: html_document
 ---
 
+```{r warning=FALSE}
+```
+## Introduction
+In this analysis, I will explore the 2019 Airbnb listings data for New York City. My main goals are:
+
+* To clean and structure the dataset for accurate analysis.
+
+* To generate insights about Airbnb listings through visualizations.
+
+* To build predictive models to understand factors influencing price and customer behaviors
+
+I aim to identify trends in room types, pricing, and availability across neighborhoods. Additionally, I will use machine learning models to predict prices and group listings into clusters.
+
+
