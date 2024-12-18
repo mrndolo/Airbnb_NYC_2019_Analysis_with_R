@@ -116,3 +116,39 @@ head(airbnb_data)
 
 This now proves that my data is clean and I can continue to perform my analysis on the data. I have successfully eliminated the nulls, duplicates and outliers from my data.
 
+
+## **2. Data Visualization**
+
+### **2.1 Insights Using ggplot2**
+```{r}
+# Distribution of room types
+ggplot(airbnb_data, aes(x = room_type)) +
+  geom_bar(fill = "skyblue") +
+  labs(title = "Room Type Distribution", x = "Room Type", y = "Count")
+
+# Percentage of each room type
+room_type_distribution <- airbnb_data %>%
+  group_by(room_type) %>%
+  summarise(count = n()) %>%
+  mutate(percentage = round(count / sum(count) * 100, 1))
+ggplot(room_type_distribution, aes(x = "", y = percentage, fill = room_type)) +
+  geom_bar(stat = "identity", width = 1) +
+  coord_polar("y", start = 0) +
+  geom_text(aes(label = paste0(percentage, "%")), 
+            position = position_stack(vjust = 0.5), 
+            color = "white", size = 4) +
+  labs(title = "Distribution of Listings by Room Type", fill = "Room Type") +
+  theme_void() +
+  theme(plot.title = element_text(hjust = 0.5))
+
+
+# Average price by neighbourhood group
+ggplot(airbnb_data, aes(x = neighbourhood_group, y = price, fill = neighbourhood_group)) +
+  geom_boxplot() +
+  labs(title = "Price by Neighbourhood Group", x = "Neighbourhood Group", y = "Price")
+
+# Availability of listings across neighbourhoods
+ggplot(airbnb_data, aes(x = availability_365)) +
+  geom_histogram(binwidth = 30, fill = "green") +
+  labs(title = "Availability of Listings", x = "Availability (Days)", y = "Count")
+```
