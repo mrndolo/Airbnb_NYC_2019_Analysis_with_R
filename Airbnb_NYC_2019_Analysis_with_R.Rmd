@@ -152,3 +152,33 @@ ggplot(airbnb_data, aes(x = availability_365)) +
   geom_histogram(binwidth = 30, fill = "green") +
   labs(title = "Availability of Listings", x = "Availability (Days)", y = "Count")
 ```
+
+
+### Summary of the intepretation of the above graphs
+
+1. **Room Type Distribution:** Most listings fall under specific room types, indicating customer preferences.
+
+2. **Price by Neighborhood Group:** Price variations reveal the most expensive areas for Airbnb listings.
+
+3. **Availability of Listings:** Shows the range of days listings are available annually.
+
+### **2.2 Advanced Visualizations**
+```{r}
+# Relationship between price and reviews
+ggplot(airbnb_data, aes(x = number_of_reviews, y = price, color = neighbourhood_group)) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Price vs. Number of Reviews", x = "Number of Reviews", y = "Price")
+
+# Popular room types by neighbourhood group
+ggplot(airbnb_data, aes(x = neighbourhood_group, fill = room_type)) +
+  geom_bar(position = "fill") +
+  labs(title = "Room Types by Neighbourhood Group", x = "Neighbourhood Group", y = "Proportion")
+```
+
+In the Price vs. Number of Reviews plot, the scatter plot visually explores the relationship between the price of Airbnb listings and the number of reviews they have received, with points colored according to their neighborhood group. We can see from the plot that the Queens area has the highes review where the prices were relatively low, which concludes that the larger population of AirBnB users generally preferred that place. 
+
+In the Room Types by Neighbourhood Group plot, we can conclude that the overall least popular room type was a shared room. This is definitely going to be a bad decision for someone looking to venture into the AirBnB business.
+
+The private rooms are popular within the cities of Bronx, Brooklyn, Queens and Staten Island.
+
+For Manhattan, the Entire home/apartment is the most popular choice.
