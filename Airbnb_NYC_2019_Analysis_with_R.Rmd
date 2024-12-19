@@ -182,3 +182,33 @@ In the Room Types by Neighbourhood Group plot, we can conclude that the overall 
 The private rooms are popular within the cities of Bronx, Brooklyn, Queens and Staten Island.
 
 For Manhattan, the Entire home/apartment is the most popular choice.
+
+## **3. Machine Learning Prediction**
+
+### **3.1 Regression Analysis**
+```{r}
+# Predicting price using linear regression
+model <- lm(price ~ room_type + neighbourhood_group + reviews_per_month + availability_365, data = airbnb_data)
+summary(model)
+```
+
+In this regression analysis, I tried to predict how factors like room type and availability influence price. The model helps identify key contributors to price changes.
+
+### **3.2 Clustering**
+```{r}
+# Clustering neighborhoods based on reviews and price
+cluster_data <- airbnb_data %>% select(number_of_reviews, price) %>% na.omit()
+kmeans_result <- kmeans(cluster_data, centers = 3)
+airbnb_data$cluster <- as.factor(kmeans_result$cluster)
+
+# Visualize clusters
+ggplot(cluster_data, aes(x = number_of_reviews, y = price, color = as.factor(kmeans_result$cluster))) +
+  geom_point(alpha = 0.5) +
+  labs(title = "Clustering of Listings", x = "Number of Reviews", y = "Price")
+```
+
+In this part, I have performed clustering on neighborhoods based on the number of reviews and price of Airbnb listings using the K-means clustering algorithm and then visualized the resulting clusters.
+
+I have clustered the Airbnb listings into three groups based on the number of reviews and price, and I have assigned each listing to a cluster, then visualized these clusters in a scatter plot. 
+
+The plot gives a good visual inspection of how the clusters relate to the variables of interest (number of reviews and price)
