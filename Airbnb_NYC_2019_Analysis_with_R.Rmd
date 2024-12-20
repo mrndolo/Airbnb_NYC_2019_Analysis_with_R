@@ -225,3 +225,12 @@ rmse(actual, predicted)
 Here, I am evaluating the performance of a regression model by calculating the Root Mean Square Error (RMSE) between the predicted values and the actual values of the dataset.
 
 I have simply evaluated the regression model by comparing its predictions on the Airbnb dataset against the actual prices, therefore providing a quantitative measure (RMSE) of the model's accuracy.
+
+## **Logistic Regression Analysis**
+
+### **1. Problem Definition**
+In this analysis, I aim to predict whether an Airbnb listing is **affordable** (binary outcome variable: 1 = Affordable, 0 = Expensive) based on the following predictor variables:
+- **Room Type**: Type of room offered (categorical variable).
+- **Minimum Nights**: Minimum nights required for booking (numerical variable).
+
+**Objective**: I will Evaluate how these factors influence affordability and use logistic regression to predict affordability. I hypothesize that both predictors are statistically significant in determining affordability.
