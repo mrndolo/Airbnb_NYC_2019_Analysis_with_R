@@ -262,3 +262,22 @@ correlation_matrix
 To begin, I prepared the data by creating a binary variable affordable, which categorizes listings as either affordable (1) or expensive (0) based on whether their price is below the median price. We also selected room_type and minimum_nights as the predictor variables for the analysis. These variables were chosen because room type is likely to influence pricing, and minimum nights could reflect booking constraints that affect affordability.
 
 I also checked for correlations among the predictors to ensure they are not highly correlated, as multicollinearity can negatively impact the logistic regression model.
+
+### **3. Exploratory Data Analysis**
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Distribution of affordability
+ggplot(data_model, aes(x = factor(affordable), fill = factor(affordable))) +
+  geom_bar() +
+  labs(title = "Distribution of Affordable Listings", 
+       x = "Affordable (1 = Yes, 0 = No)", 
+       y = "Count") +
+  scale_fill_manual(values = c("0" = "red", "1" = "green"), name = "Affordable") +
+  theme_minimal()
+
+# Minimum nights by affordability
+ggplot(data_model, aes(x = affordable, y = minimum_nights)) +
+  geom_boxplot(aes(fill = factor(affordable))) +
+  scale_fill_manual(values = c("0" = "red", "1" = "green"), name = "Affordable") +
+  labs(title = "Minimum Nights by Affordability", x = "Affordable", y = "Minimum Nights") +
+  theme_minimal()
+```
