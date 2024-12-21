@@ -234,3 +234,27 @@ In this analysis, I aim to predict whether an Airbnb listing is **affordable** (
 - **Minimum Nights**: Minimum nights required for booking (numerical variable).
 
 **Objective**: I will Evaluate how these factors influence affordability and use logistic regression to predict affordability. I hypothesize that both predictors are statistically significant in determining affordability.
+
+### **2. Data Preparation**
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(tidyverse)
+library(caret)
+
+# Load dataset
+airbnb_data <- read.csv("AB_NYC_2019.csv")
+
+# Create the binary outcome variable (affordable: 1 if price < median, 0 otherwise)
+median_price <- median(airbnb_data$price, na.rm = TRUE)
+airbnb_data <- airbnb_data %>%
+  mutate(affordable = ifelse(price < median_price, 1, 0))
+
+# Select relevant variables
+data_model <- airbnb_data %>%
+  select(affordable, room_type, minimum_nights) %>%
+  filter(!is.na(affordable))
+
+# Check for correlations
+correlation_matrix <- cor(data_model %>% select(minimum_nights), use = "complete.obs")
+correlation_matrix
+```
