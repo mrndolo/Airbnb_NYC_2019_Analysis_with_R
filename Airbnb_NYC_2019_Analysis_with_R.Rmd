@@ -281,3 +281,8 @@ ggplot(data_model, aes(x = affordable, y = minimum_nights)) +
   labs(title = "Minimum Nights by Affordability", x = "Affordable", y = "Minimum Nights") +
   theme_minimal()
 ```
+
+Here, I performed an exploratory data analysis to understand the distribution of the outcome variable and the relationship between predictors and affordability. Visualizing these distributions helps validate our choice of predictors and offers insights into potential trends.
+
+- **Distribution of Affordable Listings**: This bar plot shows the number of listings categorized as affordable versus expensive.
+- **Minimum Nights by Affordability**: The box plot provides a comparison of the minimum nights required for affordable and expensive listings.
