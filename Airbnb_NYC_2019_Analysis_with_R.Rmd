@@ -258,3 +258,7 @@ data_model <- airbnb_data %>%
 correlation_matrix <- cor(data_model %>% select(minimum_nights), use = "complete.obs")
 correlation_matrix
 ```
+
+To begin, I prepared the data by creating a binary variable affordable, which categorizes listings as either affordable (1) or expensive (0) based on whether their price is below the median price. We also selected room_type and minimum_nights as the predictor variables for the analysis. These variables were chosen because room type is likely to influence pricing, and minimum nights could reflect booking constraints that affect affordability.
+
+I also checked for correlations among the predictors to ensure they are not highly correlated, as multicollinearity can negatively impact the logistic regression model.
